@@ -216,37 +216,21 @@
     .food-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
     .food-img:hover img { transform: scale(1.03); }
 
-    /* FOOD SLIDE */
-    .food-slide-wrap { position: relative; margin-top: 44px; overflow: hidden; border-radius: 16px; }
-    .food-slide-track {
-      display: flex; transition: transform .5s cubic-bezier(.4,0,.2,1);
-    }
-    .food-slide-item {
-      min-width: 100%; aspect-ratio: 16/9;
-      overflow: hidden; flex-shrink: 0;
-    }
-    .food-slide-item img { width: 100%; height: 100%; object-fit: cover; }
-    .slide-btn {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      width: 40px; height: 40px; border-radius: 50%;
-      background: rgba(255,255,255,0.85); backdrop-filter: blur(4px);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; color: var(--black); z-index: 2;
-      transition: background .2s; border: none; cursor: pointer;
+    /* FOOD SLIDE - Swiper */
+    .swiper { width: 100%; margin-top: 44px; border-radius: 16px; overflow: hidden; }
+    .swiper-slide { aspect-ratio: 16/9; }
+    .swiper-slide img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .swiper-button-next, .swiper-button-prev {
+      width: 40px !important; height: 40px !important;
+      background: rgba(255,255,255,0.85); border-radius: 50%;
+      backdrop-filter: blur(4px);
       box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      color: var(--black) !important;
     }
-    .slide-btn:hover { background: rgba(255,255,255,1); }
-    .slide-btn.prev { left: 12px; }
-    .slide-btn.next { right: 12px; }
-    .slide-dots {
-      display: flex; justify-content: center; gap: 6px; margin-top: 14px;
-    }
-    .slide-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--cream-dark); transition: background .2s, width .2s;
-      cursor: pointer; border: none;
-    }
-    .slide-dot.active { background: var(--green); width: 18px; border-radius: 3px; }
+    .swiper-button-next::after, .swiper-button-prev::after { font-size: 14px !important; font-weight: 700; }
+    .swiper-pagination-bullet { background: var(--cream-dark) !important; opacity: 1 !important; }
+    .swiper-pagination-bullet-active { background: var(--green) !important; width: 18px !important; border-radius: 3px !important; }
+    @media (max-width: 768px) { .swiper-slide { aspect-ratio: 4/3; } }
 
     /* REVIEW */
     .review-wrap { margin-top: 48px; }
@@ -617,6 +601,7 @@
       .header-phone-btn span { display: none; }
     }
   </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body>
 
@@ -693,20 +678,21 @@
     <p class="section-body">양상추 샐러드가 전부이던 시절은 지났습니다.<br />유러피안 채소와 직접 개발한 소스로,<br />고객이 먼저 알아봤습니다.</p>
 
     <!-- 음식 슬라이드 -->
-    <div class="food-slide-wrap">
-      <div class="food-slide-track" id="foodTrack">
-        <div class="food-slide-item"><img data-src="images/food_spread1.webp" alt="쉘박스 메뉴 플랫레이" /></div>
-        <div class="food-slide-item"><img data-src="images/food_spread2.webp" alt="쉘박스 메뉴 모음" /></div>
-        <div class="food-slide-item"><img data-src="images/food_hero1.webp" alt="쉘박스 포케 클로즈업" /></div>
-        <div class="food-slide-item"><img data-src="images/food_hero2.webp" alt="쉘박스 샌드위치" /></div>
-        <div class="food-slide-item"><img data-src="images/menu_salad1.webp" alt="구운 채소 샐러드" /></div>
-        <div class="food-slide-item"><img data-src="images/menu_sandwich2.webp" alt="리코타 크랜베리 샌드위치" /></div>
-        <div class="food-slide-item"><img data-src="images/menu_poke3.webp" alt="우삼겹 포케" /></div>
+    <div class="swiper" id="foodSwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="images/food_spread1.webp" alt="쉘박스 메뉴 플랫레이" /></div>
+        <div class="swiper-slide"><img src="images/food_spread2.webp" alt="쉘박스 메뉴 모음" /></div>
+        <div class="swiper-slide"><img src="images/menu_salad3.webp" alt="리코타 당근라페 샐러드" /></div>
+        <div class="swiper-slide"><img src="images/menu_poke1.webp" alt="구운버섯 포케" /></div>
+        <div class="swiper-slide"><img src="images/menu_salad1.webp" alt="구운 채소 샐러드" /></div>
+        <div class="swiper-slide"><img src="images/menu_sandwich2.webp" alt="리코타 크랜베리 샌드위치" /></div>
+        <div class="swiper-slide"><img src="images/menu_poke3.webp" alt="우삼겹 포케" /></div>
       </div>
-      <button class="slide-btn prev" onclick="slideFood(-1)">‹</button>
-      <button class="slide-btn next" onclick="slideFood(1)">›</button>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
     </div>
-    <div class="slide-dots" id="foodDots"></div>
+    <div style="margin-top:0"></div>
 
     <!-- 고객 리뷰 -->
     <div class="review-wrap">
@@ -1314,43 +1300,14 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-  // Food Slide
-  let foodIdx = 0;
-  const foodTotal = 7;
-  const foodTrack = document.getElementById('foodTrack');
-  const dotsWrap = document.getElementById('foodDots');
-
-  // 도트 생성
-  for (let i = 0; i < foodTotal; i++) {
-    const d = document.createElement('button');
-    d.className = 'slide-dot' + (i === 0 ? ' active' : '');
-    d.onclick = () => goFood(i);
-    dotsWrap.appendChild(d);
-  }
-
-  function goFood(idx) {
-    foodIdx = (idx + foodTotal) % foodTotal;
-    foodTrack.style.transform = `translateX(-${foodIdx * 100}%)`;
-    document.querySelectorAll('.slide-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === foodIdx);
-    });
-    // lazy load 트리거
-    const imgs = foodTrack.querySelectorAll('img[data-src]');
-    imgs.forEach(img => {
-      img.src = img.dataset.src;
-      img.onload = () => img.classList.add('loaded');
-      delete img.dataset.src;
-    });
-  }
-
-  function slideFood(dir) { goFood(foodIdx + dir); }
-
-  // 자동 슬라이드 4초
-  let foodTimer = setInterval(() => slideFood(1), 4000);
-  foodTrack.parentElement.addEventListener('mouseenter', () => clearInterval(foodTimer));
-  foodTrack.parentElement.addEventListener('mouseleave', () => {
-    foodTimer = setInterval(() => slideFood(1), 4000);
+  // Food Swiper
+  new Swiper('#foodSwiper', {
+    loop: true,
+    autoplay: { delay: 4000, disableOnInteraction: false },
+    pagination: { el: '.swiper-pagination', clickable: true },
+    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
   });
 
   // Lazy Load
