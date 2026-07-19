@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>쉘박스 프랜차이즈 | 가맹 상담</title>
+  <meta name="description" content="건강한 맛 조합을 연구하는 쉘박스. 부산·경남 가맹 모집 중. 전처리 채소 직공급 시스템으로 점주가 편한 샐러드·샌드위치 프랜차이즈." />
+  <link rel="preload" as="image" href="images/store_bon.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #4d5a31;
+      --green-dark: #3d4727;
+      --cream: #f3ebe2;
+      --cream-dark: #e8ddd0;
+      --black: #1a1a1a;
+      --gray: #717171;
+      --gray-light: #f5f5f3;
+      --white: #ffffff;
+    }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+      color: var(--black); background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* HEADER */
+    .header {
+      position: sticky; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      height: 64px; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .header-logo { height: 38px; width: auto; }
+    .header-nav { display: flex; align-items: center; gap: 12px; }
+    .header-phone-btn {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 14px; color: var(--gray); padding: 8px 14px;
+      border-radius: 999px; transition: color .2s;
+    }
+    .header-phone-btn:hover { color: var(--green); }
+    .header-cta {
+      font-size: 14px; font-weight: 500;
+      background: var(--green); color: var(--white);
+      padding: 10px 20px; border-radius: 999px;
+      transition: background .2s;
+    }
+    .header-cta:hover { background: var(--green-dark); }
+
+    /* URGENCY BADGE */
+    .urgency-bar {
+      background: var(--green); padding: 9px 24px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      flex-wrap: wrap;
+    }
+    .urgency-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #ff6b6b; flex-shrink: 0;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .4; }
+    }
+    .urgency-text {
+      font-size: 13px; color: rgba(255,255,255,0.95); font-weight: 300; letter-spacing: 0.02em;
+    }
+    .urgency-text strong { color: #fff; font-weight: 500; }
+    .urgency-cta {
+      font-size: 12px; color: rgba(255,255,255,0.65);
+      text-decoration: underline; text-underline-offset: 3px;
+      white-space: nowrap;
+    }
+    .urgency-cta:hover { color: #fff; }
+
+    /* GROWTH STORY */
+    .growth-section { background: var(--cream); }
+    .growth-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    .timeline { margin-top: 40px; }
+    .timeline-item {
+      display: flex; gap: 20px; padding-bottom: 32px; position: relative;
+    }
+    .timeline-item::before {
+      content: ''; position: absolute;
+      left: 11px; top: 24px; bottom: 0;
+      width: 1px; background: var(--cream-dark);
+    }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-dot {
+      width: 23px; height: 23px; border-radius: 50%;
+      border: 1.5px solid var(--green); background: var(--cream);
+      flex-shrink: 0; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .timeline-dot.active { background: var(--green); }
+    .timeline-dot.active::after {
+      content: ''; width: 7px; height: 7px;
+      border-radius: 50%; background: #fff;
+    }
+    .timeline-date { font-size: 12px; color: var(--green); font-weight: 500; margin-bottom: 4px; letter-spacing: 0.05em; }
+    .timeline-title { font-size: 15px; font-weight: 500; color: var(--black); margin-bottom: 4px; }
+    .timeline-desc { font-size: 13px; color: var(--gray); font-weight: 300; line-height: 1.7; }
+
+    /* REVENUE CARDS */
+    .revenue-cards { display: flex; flex-direction: column; gap: 16px; margin-top: 40px; }
+    .revenue-card {
+      background: var(--white); border-radius: 16px; padding: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .revenue-card-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .revenue-card-label { font-size: 12px; color: var(--green); font-weight: 500; letter-spacing: 0.08em; }
+    .revenue-card-branch { font-size: 11px; color: var(--gray); font-weight: 300; }
+    .revenue-card-badge {
+      font-size: 10px; font-weight: 500; color: var(--green);
+      background: var(--cream); padding: 3px 10px; border-radius: 999px;
+    }
+    .revenue-card-num { font-size: 32px; font-weight: 400; color: var(--black); margin-bottom: 4px; }
+    .revenue-card-num span { font-size: 16px; color: var(--gray); font-weight: 300; }
+    .revenue-card-date { font-size: 11px; color: var(--gray); font-weight: 300; }
+    .revenue-disclaimer {
+      margin-top: 20px; padding: 14px 16px;
+      background: rgba(77,90,49,0.06); border-radius: 10px;
+      font-size: 11px; color: var(--gray); font-weight: 300; line-height: 1.8;
+    }
+    .revenue-disclaimer a { color: var(--green); text-decoration: underline; text-underline-offset: 2px; }
+
+    @media (max-width: 900px) { .growth-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; padding: 72px 24px 72px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; background: var(--white);
+    }
+    .hero h1 {
+      font-size: clamp(34px, 6vw, 68px); font-weight: 300;
+      color: var(--green); letter-spacing: -0.02em;
+      line-height: 1.15; margin-bottom: 16px;
+    }
+    .hero-sub { font-size: clamp(16px, 2.2vw, 24px); color: var(--gray); font-weight: 300; margin-bottom: 10px; }
+    .hero-desc { font-size: clamp(13px, 1.5vw, 17px); color: #aaa; font-weight: 300; margin-bottom: 36px; }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green); color: var(--white);
+      font-size: 15px; font-weight: 500;
+      padding: 14px 28px; border-radius: 999px;
+      transition: background .2s, transform .15s;
+    }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+    .hero-img-wrap {
+      width: 100%; max-width: 960px;
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.11);
+      aspect-ratio: 16/9;
+    }
+    .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-stats {
+      display: flex; gap: 32px; flex-wrap: wrap; justify-content: center;
+      margin-top: 36px;
+      border: 1px solid rgba(0,0,0,0.08); border-radius: 18px;
+      padding: 20px 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat-num { font-size: 26px; font-weight: 500; color: var(--green); display: block; margin-bottom: 4px; }
+    .hero-stat-num s { font-size: 16px; color: #ccc; margin-right: 4px; font-weight: 300; }
+    .badge { font-size: 10px; color: #e53e3e; font-weight: 500; display: block; margin-top: 2px; }
+    .hero-stat p { font-size: 12px; color: var(--gray); font-weight: 300; }
+
+    /* SECTION */
+    .section { padding: 96px 24px; }
+    .section-inner { max-width: 1060px; margin: 0 auto; }
+    .section-label {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(28px, 3.5vw, 48px); font-weight: 400;
+      line-height: 1.25; color: var(--black); margin-bottom: 18px;
+    }
+    .title-accent { color: var(--green); }
+    .section-body { font-size: 15px; font-weight: 300; line-height: 1.9; color: var(--gray); max-width: 540px; }
+
+    /* SPACE */
+    .space-section { background: var(--gray-light); }
+    .space-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 44px;
+    }
+    .space-img { border-radius: 14px; overflow: hidden; }
+    .space-img img { width: 100%; height: 100%; object-fit: cover; }
+    .space-img:first-child { aspect-ratio: 4/3; }
+    .space-img:nth-child(2) { grid-row: 1 / 3; }
+    .space-img:nth-child(2) img { height: 100%; min-height: 300px; }
+    .space-img:nth-child(3) { aspect-ratio: 4/3; }
+    .space-quote {
+      margin-top: 40px; font-size: clamp(18px, 2.2vw, 26px);
+      font-weight: 300; color: var(--black); line-height: 1.7;
+    }
+
+    /* FOOD */
+    .food-section { background: var(--white); }
+    .food-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 44px; }
+    .food-img { border-radius: 14px; overflow: hidden; aspect-ratio: 3/2; }
+    .food-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    .food-img:hover img { transform: scale(1.03); }
+
+    /* FOOD SLIDE */
+    .food-slide-wrap { position: relative; margin-top: 44px; overflow: hidden; border-radius: 16px; }
+    .food-slide-track {
+      display: flex; transition: transform .5s cubic-bezier(.4,0,.2,1);
+    }
+    .food-slide-item {
+      min-width: 100%; aspect-ratio: 16/9;
+      overflow: hidden; flex-shrink: 0;
+    }
+    .food-slide-item img { width: 100%; height: 100%; object-fit: cover; }
+    .slide-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,0.85); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: var(--black); z-index: 2;
+      transition: background .2s; border: none; cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .slide-btn:hover { background: rgba(255,255,255,1); }
+    .slide-btn.prev { left: 12px; }
+    .slide-btn.next { right: 12px; }
+    .slide-dots {
+      display: flex; justify-content: center; gap: 6px; margin-top: 14px;
+    }
+    .slide-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--cream-dark); transition: background .2s, width .2s;
+      cursor: pointer; border: none;
+    }
+    .slide-dot.active { background: var(--green); width: 18px; border-radius: 3px; }
+
+    /* REVIEW */
+    .review-wrap { margin-top: 48px; }
+    .review-label { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); margin-bottom: 16px; }
+    .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .review-card {
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      background: var(--gray-light);
+    }
+    .review-card img { width: 100%; display: block; }
+    .review-placeholder {
+      border: 2px dashed var(--cream-dark); border-radius: 14px;
+      aspect-ratio: 3/4;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--gray-light);
+    }
+    .review-placeholder p { font-size: 12px; color: var(--gray); font-weight: 300; text-align: center; padding: 16px; }
+    @media (max-width: 768px) {
+      .review-grid { grid-template-columns: repeat(2, 1fr); }
+      .food-slide-item { aspect-ratio: 4/3; }
+    }
+    @media (max-width: 480px) {
+      .review-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* MENU */
+    .menu-section { background: var(--gray-light); }
+    .menu-tabs { display: flex; gap: 8px; margin-bottom: 36px; flex-wrap: wrap; }
+    .menu-tab {
+      font-size: 13px; font-weight: 500; letter-spacing: 0.1em;
+      padding: 9px 22px; border-radius: 999px;
+      border: 1.5px solid var(--green); color: var(--green); transition: all .2s;
+    }
+    .menu-tab.active, .menu-tab:hover { background: var(--green); color: var(--white); }
+    .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .menu-card {
+      background: var(--white); border-radius: 14px; overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .menu-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.1); }
+    .menu-card-img { aspect-ratio: 1/1; overflow: hidden; }
+    .menu-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    .menu-card:hover .menu-card-img img { transform: scale(1.05); }
+    .menu-card-body { padding: 14px 16px; }
+    .menu-card-name { font-size: 14px; font-weight: 500; color: var(--black); margin-bottom: 4px; }
+    .menu-card-desc { font-size: 12px; color: var(--gray); font-weight: 300; line-height: 1.6; }
+    .menu-more { text-align: center; margin-top: 36px; }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 6px;
+      border: 1.5px solid var(--green); color: var(--green);
+      font-size: 14px; font-weight: 500;
+      padding: 11px 26px; border-radius: 999px; transition: all .2s;
+    }
+    .btn-outline:hover { background: var(--green); color: var(--white); }
+
+    /* STATS */
+    .stats-section { background: var(--green); }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 20px; text-align: center;
+    }
+    .stat-num {
+      font-size: clamp(32px, 3.5vw, 52px); font-weight: 400;
+      color: var(--white); display: block; margin-bottom: 8px;
+    }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,0.6); font-weight: 300; }
+
+    /* STORY */
+    .story-section { background: var(--cream); }
+    .story-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    .story-quote {
+      font-size: clamp(16px, 2vw, 22px); font-weight: 300;
+      color: var(--green-dark);
+      border-left: 3px solid var(--green); padding-left: 18px;
+      margin: 24px 0; line-height: 1.75;
+    }
+    .story-points { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+    .story-points li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; color: var(--black); font-weight: 300; line-height: 1.7;
+    }
+    .story-points li::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--green); margin-top: 9px; flex-shrink: 0;
+    }
+
+    /* DIAGRAM */
+    .story-diagram {
+      background: var(--white); border-radius: 20px; padding: 36px 28px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.07);
+    }
+    .story-diagram h4 {
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 24px; font-weight: 500;
+    }
+    .diagram-step {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 14px 0; border-bottom: 1px solid var(--cream-dark);
+    }
+    .diagram-step:last-child { border-bottom: none; }
+    .diagram-icon {
+      width: 40px; height: 40px; border-radius: 11px;
+      border: 1.5px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    /* SVG 아이콘 */
+    .diagram-icon svg { width: 20px; height: 20px; stroke: var(--green); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .diagram-step-text h5 { font-size: 13px; font-weight: 500; color: var(--black); margin-bottom: 2px; }
+    .diagram-step-text p { font-size: 12px; color: var(--gray); font-weight: 300; line-height: 1.6; }
+    .diagram-result {
+      margin-top: 20px; background: var(--cream); border-radius: 10px;
+      padding: 14px 18px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .diagram-result span { font-size: 12px; color: var(--gray); font-weight: 300; }
+    .diagram-result strong { font-size: 20px; font-weight: 500; color: var(--green); }
+
+    /* REASONS */
+    .reasons-section { background: var(--white); }
+    .reason-item {
+      display: grid; grid-template-columns: 72px 1fr; gap: 28px;
+      align-items: start; padding: 44px 0;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .reason-item:last-child { border-bottom: none; }
+    .reason-num { font-size: 52px; font-weight: 300; color: var(--cream-dark); line-height: 1; }
+    .reason-content h3 { font-size: 20px; font-weight: 500; color: var(--black); margin-bottom: 10px; line-height: 1.35; }
+    .reason-content p { font-size: 14px; color: var(--gray); font-weight: 300; line-height: 1.9; margin-bottom: 18px; }
+    .reason-tags { display: flex; gap: 7px; flex-wrap: wrap; }
+    .reason-tag {
+      font-size: 11px; font-weight: 500;
+      background: var(--cream); color: var(--green);
+      padding: 5px 13px; border-radius: 999px;
+    }
+
+    /* INTERVIEW */
+    .interview-section { background: var(--gray-light); }
+    .interview-placeholder {
+      border: 2px dashed var(--cream-dark); border-radius: 16px;
+      padding: 56px 40px; text-align: center; margin-top: 36px;
+    }
+    .interview-placeholder p { color: var(--gray); font-size: 14px; font-weight: 300; }
+
+    /* PROCESS */
+    .process-section { background: var(--white); }
+    .process-steps {
+      display: flex; gap: 0; margin-top: 52px; position: relative;
+    }
+    .process-steps::before {
+      content: ''; position: absolute;
+      top: 27px; left: 28px; right: 28px;
+      height: 1px; background: var(--cream-dark); z-index: 0;
+    }
+    .process-step { flex: 1; text-align: center; position: relative; z-index: 1; }
+    .process-dot {
+      width: 54px; height: 54px; border-radius: 50%;
+      background: var(--white); border: 1.5px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px;
+      font-size: 18px; font-weight: 400; color: var(--green);
+    }
+    .process-step h4 { font-size: 14px; font-weight: 500; color: var(--black); margin-bottom: 6px; }
+    .process-step p { font-size: 12px; color: var(--gray); font-weight: 300; line-height: 1.7; padding: 0 6px; }
+
+    /* COST TABLE */
+    .cost-section { background: var(--cream); }
+    .cost-promo-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green); color: var(--white);
+      font-size: 13px; font-weight: 500;
+      padding: 8px 20px; border-radius: 999px; margin-bottom: 20px;
+    }
+    .cost-box { background: var(--cream-dark); border-radius: 20px; padding: 40px; margin-top: 36px; }
+    .cost-table-wrap { width: 100%; }
+    .cost-table-wrap table { width: 100%; border-collapse: collapse; }
+    .cost-table-wrap thead tr { border-bottom: 2px solid var(--green); }
+    .cost-table-wrap th {
+      padding: 0 0 16px; font-size: 14px; font-weight: 500; color: var(--green);
+      text-align: center;
+    }
+    .cost-table-wrap th:first-child { text-align: left; }
+    .cost-table-wrap td {
+      padding: 16px 0; font-size: 14px; font-weight: 300;
+      color: var(--black); text-align: center;
+      border-bottom: 1px solid rgba(77,90,49,0.15);
+    }
+    .cost-table-wrap td:first-child { text-align: left; color: var(--green); font-weight: 400; }
+    .cost-table-wrap .total-row td {
+      border-bottom: none; border-top: 2px solid var(--green);
+      font-weight: 500; padding-top: 20px;
+    }
+    .cost-table-wrap .total-row td:first-child { font-size: 15px; }
+    .cost-exempt {
+      display: inline-block; background: var(--white);
+      padding: 4px 14px; border-radius: 999px;
+      color: var(--green); font-size: 13px; font-weight: 500;
+    }
+    .cost-strike { text-decoration: line-through; color: #aaa; }
+    .cost-total-num { font-size: 22px; color: var(--green); font-weight: 500; }
+    .cost-save { font-size: 11px; color: #e53e3e; font-weight: 500; margin-top: 2px; display: block; }
+    .cost-notes { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(77,90,49,0.2); }
+    .cost-notes p { font-size: 11px; color: var(--gray); font-weight: 300; line-height: 2; }
+    /* 모바일 테이블 */
+    .cost-mobile { display: none; }
+    .cost-mobile-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 0; border-bottom: 1px solid rgba(77,90,49,0.15);
+    }
+    .cost-mobile-row:first-child { border-top: 2px solid var(--green); padding-top: 16px; }
+    .cost-mobile-label { font-size: 14px; color: var(--green); font-weight: 400; }
+    .cost-mobile-vals { display: flex; gap: 16px; align-items: center; }
+    .cost-mobile-orig { font-size: 12px; color: #aaa; text-decoration: line-through; min-width: 52px; text-align: center; }
+    .cost-mobile-promo { font-size: 13px; color: var(--green); font-weight: 500; min-width: 56px; text-align: center; }
+    .cost-mobile-total {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 0; border-top: 2px solid var(--green); margin-top: 4px;
+    }
+
+    /* FAQ */
+    .faq-section { background: var(--white); }
+    .faq-list { margin-top: 36px; }
+    .faq-item { border-bottom: 1px solid var(--cream-dark); }
+    .faq-item:first-child { border-top: 1px solid var(--cream-dark); }
+    .faq-q {
+      width: 100%; text-align: left;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 0; font-size: 15px; font-weight: 400; color: var(--black);
+    }
+    .faq-q .faq-icon { font-size: 20px; color: var(--green); transition: transform .2s; flex-shrink: 0; margin-left: 16px; }
+    .faq-q.open .faq-icon { transform: rotate(45deg); }
+    .faq-a { font-size: 14px; color: var(--gray); font-weight: 300; line-height: 1.85; padding-bottom: 18px; display: none; }
+    .faq-a.open { display: block; }
+
+    /* CTA */
+    .cta-section { position: relative; overflow: hidden; }
+    .cta-bg { position: absolute; inset: 0; }
+    .cta-bg img { width: 100%; height: 100%; object-fit: cover; }
+    .cta-bg::after { content: ''; position: absolute; inset: 0; background: rgba(25,32,15,0.74); }
+    .cta-inner {
+      position: relative; z-index: 1;
+      padding: 80px 24px; max-width: 680px; margin: 0 auto; text-align: center;
+    }
+    .cta-inner .section-label { color: rgba(255,255,255,0.55); }
+    .cta-title {
+      font-size: clamp(24px, 3.5vw, 42px); font-weight: 300;
+      color: var(--white); line-height: 1.45; margin-bottom: 44px;
+    }
+    .cta-title .title-accent { color: var(--cream); }
+
+    /* FORM */
+    .form-wrap { background: rgba(255,255,255,0.97); border-radius: 20px; padding: 36px; text-align: left; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-group label { font-size: 12px; font-weight: 500; color: var(--black); }
+    .form-group input,
+    .form-group textarea {
+      border: 1.5px solid var(--cream-dark); border-radius: 10px;
+      padding: 11px 14px; font-size: 14px; font-family: inherit;
+      font-weight: 300; color: var(--black); background: var(--white);
+      outline: none; transition: border-color .2s; width: 100%;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--green); }
+    .form-group textarea { resize: none; height: 88px; }
+    .radio-group { display: flex; gap: 16px; flex-wrap: wrap; padding: 4px 0; }
+    .radio-label {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 300; color: var(--black); cursor: pointer;
+      white-space: nowrap;
+    }
+    .radio-label input[type="radio"] { accent-color: var(--green); width: 15px; height: 15px; flex-shrink: 0; }
+    .form-submit {
+      width: 100%; padding: 15px;
+      background: var(--green); color: var(--white);
+      font-size: 15px; font-weight: 500; font-family: inherit;
+      border-radius: 10px; margin-top: 6px; transition: background .2s;
+    }
+    .form-submit:hover { background: var(--green-dark); }
+    .form-kakao {
+      width: 100%; padding: 13px;
+      background: #FEE500; color: #191919;
+      font-size: 14px; font-weight: 500; font-family: inherit;
+      border-radius: 10px; margin-top: 10px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: opacity .2s;
+    }
+    .form-kakao:hover { opacity: .85; }
+    .form-divider { text-align: center; font-size: 11px; color: #bbb; margin: 10px 0; font-weight: 300; }
+    .form-success { display: none; text-align: center; padding: 36px 20px; }
+    .form-success.show { display: block; }
+    .form-success h3 { font-size: 18px; font-weight: 500; color: var(--green); margin-bottom: 8px; }
+    .form-success p { font-size: 14px; color: var(--gray); font-weight: 300; }
+
+    /* FOOTER */
+    .footer {
+      background: var(--black); color: rgba(255,255,255,0.45);
+      padding: 40px 24px; text-align: center;
+      font-size: 12px; font-weight: 300; line-height: 2.2;
+    }
+    .footer a { color: rgba(255,255,255,0.45); }
+    .footer a:hover { color: var(--white); }
+    .footer-logo { height: 34px; margin: 0 auto 18px; opacity: 0.4; filter: brightness(10); }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white); border-radius: 20px; padding: 44px 36px;
+      text-align: center; max-width: 340px; width: 90%; position: relative;
+    }
+    .modal-close-x {
+      position: absolute; top: 14px; right: 14px;
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--gray-light); font-size: 18px; color: var(--gray);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal-icon {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: var(--green); margin: 0 auto 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+    }
+    .modal h3 { font-size: 17px; font-weight: 500; color: var(--green); margin-bottom: 10px; }
+    .modal-num { font-size: 30px; font-weight: 500; color: var(--green); display: block; margin-bottom: 6px; }
+    .modal p { font-size: 13px; color: var(--gray); font-weight: 300; margin-bottom: 20px; }
+    .modal-close-btn {
+      width: 100%; padding: 11px;
+      background: var(--cream); color: var(--green);
+      border-radius: 10px; font-size: 14px; font-weight: 500; font-family: inherit;
+      transition: background .2s;
+    }
+    .modal-close-btn:hover { background: var(--green); color: var(--white); }
+
+    /* LAZY */
+    img[data-src] { opacity: 0; transition: opacity .4s; }
+    img.loaded { opacity: 1; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
+      .story-inner { grid-template-columns: 1fr; gap: 36px; }
+    }
+    @media (max-width: 768px) {
+      .section { padding: 64px 20px; }
+      .space-grid { grid-template-columns: 1fr; }
+      .space-img:nth-child(2) { grid-row: auto; }
+      .space-img:nth-child(2) img { min-height: 220px; max-height: 280px; }
+      .food-grid { grid-template-columns: 1fr; }
+      .menu-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .process-steps { flex-direction: column; gap: 28px; }
+      .process-steps::before { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-stats { gap: 20px; padding: 18px 20px; }
+      .cost-table-wrap { display: none; }
+      .cost-mobile { display: block; }
+      .reason-item { grid-template-columns: 52px 1fr; gap: 16px; }
+      .reason-num { font-size: 40px; }
+    }
+    @media (max-width: 520px) {
+      .menu-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .header-phone-btn span { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="urgency-bar">
+  <span class="urgency-dot"></span>
+  <span class="urgency-text">부산 10호점까지 가맹비 면제 진행 중 · 현재 4호점 운영 · <strong>잔여 6자리</strong></span>
+  <a href="#contact" class="urgency-cta">지금 상담하기 →</a>
+</div>
+<header class="header">
+  <img src="images/logo.png" alt="LA CUISINE di ShallBox" class="header-logo" />
+  <nav class="header-nav">
+    <button class="header-phone-btn" onclick="openPhoneModal()">
+      📞 <span>전화 상담</span>
+    </button>
+    <a href="#contact" class="header-cta">가맹 상담</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>건강한 맛의 조합,<br />쉘박스와 함께</h1>
+  <p class="hero-sub">샐러드 &amp; 샌드위치 &amp; 커피 전문점</p>
+  <p class="hero-desc">지역사회 속 작은 유럽 감성공간으로 성장하세요</p>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-primary">
+      가맹 상담 신청
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="hero-img-wrap">
+    <img src="images/store_bon.webp" alt="쉘박스 본점" />
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-num">420만원</span>
+      <p>일 최고 매출</p>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">4개</span>
+      <p>운영 지점</p>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num"><s>500만원</s><span class="badge">한시적 면제</span></span>
+      <p>가맹비</p>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">0건</span>
+      <p>폐점</p>
+    </div>
+  </div>
+</section>
+
+<!-- SPACE -->
+<section class="section space-section">
+  <div class="section-inner">
+    <p class="section-label">Brand Space</p>
+    <h2 class="section-title">작은 문 하나를 열면<br /><span class="title-accent">유럽의 골목</span>이 펼쳐집니다</h2>
+    <p class="section-body">쉘박스는 인테리어 컨셉부터 함께 만들어갑니다.<br />시장 안에도, 주택가에도, 오피스 골목에도 —<br />그 동네에 원래 있었던 것처럼 자연스럽게.</p>
+    <div class="space-grid">
+      <div class="space-img"><img data-src="images/store_bon.webp" alt="쉘박스 본점 외관" /></div>
+      <div class="space-img"><img data-src="images/store_night.webp" alt="쉘박스 야경" /></div>
+      <div class="space-img"><img data-src="images/store_seomyeon.webp" alt="쉘박스 서면점" /></div>
+    </div>
+    <p class="space-quote">"우리 동네에 원래 있었던 것처럼,<br />당신의 공간을 채웁니다."</p>
+  </div>
+</section>
+
+<!-- FOOD -->
+<section class="section food-section">
+  <div class="section-inner">
+    <p class="section-label">Our Food</p>
+    <h2 class="section-title">음식이<br /><span class="title-accent">증명합니다</span></h2>
+    <p class="section-body">양상추 샐러드가 전부이던 시절은 지났습니다.<br />유러피안 채소와 직접 개발한 소스로,<br />고객이 먼저 알아봤습니다.</p>
+
+    <!-- 음식 슬라이드 -->
+    <div class="food-slide-wrap">
+      <div class="food-slide-track" id="foodTrack">
+        <div class="food-slide-item"><img data-src="images/food_spread1.webp" alt="쉘박스 메뉴 플랫레이" /></div>
+        <div class="food-slide-item"><img data-src="images/food_spread2.webp" alt="쉘박스 메뉴 모음" /></div>
+        <div class="food-slide-item"><img data-src="images/food_hero1.webp" alt="쉘박스 포케 클로즈업" /></div>
+        <div class="food-slide-item"><img data-src="images/food_hero2.webp" alt="쉘박스 샌드위치" /></div>
+        <div class="food-slide-item"><img data-src="images/menu_salad1.webp" alt="구운 채소 샐러드" /></div>
+        <div class="food-slide-item"><img data-src="images/menu_sandwich2.webp" alt="리코타 크랜베리 샌드위치" /></div>
+        <div class="food-slide-item"><img data-src="images/menu_poke3.webp" alt="우삼겹 포케" /></div>
+      </div>
+      <button class="slide-btn prev" onclick="slideFood(-1)">‹</button>
+      <button class="slide-btn next" onclick="slideFood(1)">›</button>
+    </div>
+    <div class="slide-dots" id="foodDots"></div>
+
+    <!-- 고객 리뷰 -->
+    <div class="review-wrap">
+      <p class="review-label">Customer Review</p>
+      <div class="review-grid" id="reviewGrid">
+        <!-- 리뷰 캡처 이미지 올려주시면 여기에 삽입됩니다 -->
+        <div class="review-placeholder"><p>리뷰 캡처를<br />올려주세요</p></div>
+        <div class="review-placeholder"><p>리뷰 캡처를<br />올려주세요</p></div>
+        <div class="review-placeholder"><p>리뷰 캡처를<br />올려주세요</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="section menu-section" id="menu">
+  <div class="section-inner">
+    <p class="section-label">Menu</p>
+    <h2 class="section-title">대표 메뉴</h2>
+    <div class="menu-tabs">
+      <button class="menu-tab active" onclick="showMenu('salad', this)">SALAD</button>
+      <button class="menu-tab" onclick="showMenu('sandwich', this)">SANDWICH</button>
+      <button class="menu-tab" onclick="showMenu('poke', this)">POKE</button>
+    </div>
+    <div id="menu-salad" class="menu-grid">
+      <div class="menu-card">
+        <div class="menu-card-img"><img data-src="images/menu_salad1.webp" alt="구운 채소 샐러드" /></div>
+        <div class="menu-card-body">
+          <p class="menu-card-name">구운 채소 샐러드</p>
+          <p class="menu-card-desc">채소를 직접 구워 담백하고 깔끔한 맛이 특징인 쉘박스 채소 샐러드</p>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-img"><img data-src="images/menu_salad2.webp" alt="수비드 닭가슴살 샐러드" /></div>
+        <div class="menu-card-body">
+          <p class="menu-card-name">수비드 닭가슴살 샐러드</p>
+          <p class="menu-card-desc">수비드 공법으로 촉촉하게 익힌 닭가슴살과 유러피안 채소의 조합</p>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-img"><img data-src="images/menu_salad3.webp" alt="리코타 당근라페 샐러드" /></div>
+        <div class="menu-card-body">
+          <p class="menu-card-name">리코타 당근라페 샐러드</p>
+          <p class="menu-card-desc">부드러운 리코타 치즈와 프렌치 당근라페의 감성적인 조합</p>
+        </div>
+      </div>
+    </div>
+    <div id="menu-sandwich" class="menu-grid" style="display:none">
+      <div class="menu-card">
+        <div class="menu-card-img"><img data-src="images/menu_sandwich1.webp" alt="고구마 치킨텐더 샌드위치" /></div>
+        <div class="menu-card-body">
+          <p class="menu-card-name">고구마 치킨텐더 샌드위치</p>
+          <p class="menu-card-desc">바삭한 치킨텐더와 달콤한 고구마무스의 조합</p>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-img"><img data-src="images/menu_sandwich2.webp" alt="리코타 크랜베리 닭가슴살 샌드위치" /></div>
+        <div class="menu-card-body">
+          <p class="menu-card-name">리코타 크랜베리 샌드위치</p>
+          <p class="menu-card-desc">리코타 치즈의 달콤 고소함에 크랜베리의 풍미를 더한 샌드위치</p>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-img"><img data-src="images/menu_sandwich3.webp" alt="청양 크림치즈 베이글" /></div>
+        <div class="menu-card-body">
+          <p class="menu-card-name">청양 크림치즈 베이글 ✦</p>
+          <p class="menu-card-desc">쉘박스 시그니처. 청양고추가 크림치즈의 느끼함을 잡아 밸런스가 탁월한 베이글 샌드위치</p>
+        </div>
+      </div>
+    </div>
+    <div id="menu-poke" class="menu-grid" style="display:none">
+      <div class="menu-card">
+        <div class="menu-card-img"><img data-src="images/menu_poke1.webp" alt="구운 버섯 포케" /></div>
+        <div class="menu-card-body">
+          <p class="menu-card-name">구운 버섯 포케</p>
+          <p class="menu-card-desc">향긋하게 구운 버섯과 현미밥의 건강한 한 끼</p>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-img"><img data-src="images/menu_poke2.webp" alt="훈제오리 포케" /></div>
+        <div class="menu-card-body">
+          <p class="menu-card-name">훈제오리 포케</p>
+          <p class="menu-card-desc">훈연향이 깊은 오리고기와 유러피안 채소의 특별한 만남</p>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-img"><img data-src="images/menu_poke3.webp" alt="우삼겹 포케" /></div>
+        <div class="menu-card-body">
+          <p class="menu-card-name">우삼겹 포케</p>
+          <p class="menu-card-desc">부드러운 우삼겹과 고소한 현미밥, 든든한 한 끼</p>
+        </div>
+      </div>
+    </div>
+    <div class="menu-more">
+      <a href="/menu.html" class="btn-outline">
+        전체 메뉴 보기
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="section stats-section">
+  <div class="section-inner">
+    <div class="stats-grid">
+      <div><span class="stat-num">2022</span><p class="stat-label">브랜드 시작</p></div>
+      <div><span class="stat-num">4</span><p class="stat-label">운영 지점</p></div>
+      <div><span class="stat-num">0</span><p class="stat-label">폐점</p></div>
+      <div><span class="stat-num">4,000<small style="font-size:.48em">만원</small></span><p class="stat-label">본점 월평균 매출</p></div>
+      <div><span class="stat-num">35<small style="font-size:.48em">%</small></span><p class="stat-label">가맹점 평균 원가율</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GROWTH STORY -->
+<section class="section growth-section">
+  <div class="section-inner">
+    <div class="growth-inner">
+      <div>
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">처음부터 서두르지<br /><span class="title-accent">않았습니다</span></h2>
+        <p class="section-body">한 매장에서 3년.<br />맛의 조합을 완성하고,<br />시스템을 다듬고,<br />그때서야 문을 열었습니다.</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot active"></div>
+            <div>
+              <p class="timeline-date">2022. 03</p>
+              <p class="timeline-title">본점 오픈 · 해운대</p>
+              <p class="timeline-desc">맛의 조합을 완성하고<br />전처리 시스템을 만든 3년</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot active"></div>
+            <div>
+              <p class="timeline-date">2025</p>
+              <p class="timeline-title">가맹 모집 시작</p>
+              <p class="timeline-desc">준비된 브랜드가 처음으로<br />함께할 사람을 찾기 시작했습니다</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot active"></div>
+            <div>
+              <p class="timeline-date">2025. 02</p>
+              <p class="timeline-title">대연점 · 가맹 1호점</p>
+              <p class="timeline-desc">점주님이 직접 운영</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot active"></div>
+            <div>
+              <p class="timeline-date">2025. 09</p>
+              <p class="timeline-title">서면점 · 가맹 2호점</p>
+              <p class="timeline-desc">점주님이 직접 운영</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot active"></div>
+            <div>
+              <p class="timeline-date">2026. 06</p>
+              <p class="timeline-title">동래점 · 가맹 3호점</p>
+              <p class="timeline-desc">점주님이 직접 운영</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="section-label" style="margin-bottom:14px;">실제 운영 데이터</p>
+        <div class="revenue-cards">
+          <div class="revenue-card">
+            <div class="revenue-card-top">
+              <div>
+                <p class="revenue-card-label">본점 · 해운대</p>
+                <p class="revenue-card-branch">직영점</p>
+              </div>
+            </div>
+            <p class="revenue-card-num">4,550<span>만원</span></p>
+            <p class="revenue-card-date">2026년 6월 기준 월 매출</p>
+          </div>
+          <div class="revenue-card">
+            <div class="revenue-card-top">
+              <div>
+                <p class="revenue-card-label">대연점</p>
+                <p class="revenue-card-branch">가맹 1호점</p>
+              </div>
+              <span class="revenue-card-badge">가맹점</span>
+            </div>
+            <p class="revenue-card-num">2,700~3,000<span>만원</span></p>
+            <p class="revenue-card-date">2026년 5~6월 기준 월 매출</p>
+          </div>
+          <div class="revenue-card">
+            <div class="revenue-card-top">
+              <div>
+                <p class="revenue-card-label">서면점</p>
+                <p class="revenue-card-branch">가맹 2호점</p>
+              </div>
+              <span class="revenue-card-badge">가맹점</span>
+            </div>
+            <p class="revenue-card-num">4,029<span>만원</span></p>
+            <p class="revenue-card-date">2026년 5월 기준 월 매출</p>
+          </div>
+        </div>
+        <div class="revenue-disclaimer">
+          이 수치는 각 지점의 실제 매출이며 매장 위치·규모·운영 방식에 따라 상이할 수 있습니다.<br />
+          공정거래위원회 정보공개서 등록번호 20251036
+          <a href="https://franchise.ftc.go.kr/mnu/00013/program/userRqst/view.do?encFirMstSn=OIpaOU0pJEIvh3yVMlh5eg%3D%3D" target="_blank"> → 확인하기</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="section story-section">
+  <div class="section-inner">
+    <div class="story-inner">
+      <div>
+        <p class="section-label">From the Founder</p>
+        <h2 class="section-title">직접 운영하면서<br /><span class="title-accent">알게 된 것</span></h2>
+        <p class="section-body">저도 처음엔 직접 했습니다. 매일 아침 장을 보고, 수십 가지 채소를 씻고 자르고.</p>
+        <blockquote class="story-quote">
+          "재료 손질 인건비를 계산해보니<br />구매한 재료의 55%만 실제로 쓰고 있었습니다."
+        </blockquote>
+        <ul class="story-points">
+          <li>매일 달라지는 채소 가격</li>
+          <li>장 보러 가는 시간</li>
+          <li>수십 가지 토핑 손질 시간</li>
+          <li>예측 불가능한 로스율</li>
+        </ul>
+        <p class="section-body" style="margin-top:20px;">그래서 만들었습니다. 점주가 진짜 해야 할 일에만 집중할 수 있는 시스템을.</p>
+      </div>
+      <div class="story-diagram">
+        <h4>전처리 공급 시스템</h4>
+        <div>
+          <div class="diagram-step">
+            <div class="diagram-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="diagram-step-text">
+              <h5>유러피안 채소 농장 연간 계약</h5>
+              <p>연중 동일 가격으로 안정적 공급</p>
+            </div>
+          </div>
+          <div class="diagram-step">
+            <div class="diagram-icon">
+              <svg viewBox="0 0 24 24"><path d="M6 3h12l3 9H3L6 3z"/><path d="M3 12h18"/><circle cx="9" cy="19" r="2"/><circle cx="15" cy="19" r="2"/></svg>
+            </div>
+            <div class="diagram-step-text">
+              <h5>전처리 완료 납품</h5>
+              <p>세척·소분·진공포장 완료 상태로 배송</p>
+            </div>
+          </div>
+          <div class="diagram-step">
+            <div class="diagram-icon">
+              <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4"/><path d="M9 3h6"/><path d="M15 3h4a2 2 0 0 1 2 2v4"/><path d="M3 9v6"/><path d="M21 9v6"/><path d="M3 15v2a2 2 0 0 0 2 2h4"/><path d="M15 19h4a2 2 0 0 0 2-2v-2"/></svg>
+            </div>
+            <div class="diagram-step-text">
+              <h5>소스 직접 개발·제조</h5>
+              <p>본사 레시피 소스 일괄 납품, 맛 일관성 유지</p>
+            </div>
+          </div>
+          <div class="diagram-step">
+            <div class="diagram-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            </div>
+            <div class="diagram-step-text">
+              <h5>매장은 판매에만 집중</h5>
+              <p>재료 손질 없이 바로 조리·서빙</p>
+            </div>
+          </div>
+        </div>
+        <div class="diagram-result">
+          <span>가맹점 평균 원가율</span>
+          <strong>35% 고정</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REASONS -->
+<section class="section reasons-section">
+  <div class="section-inner">
+    <p class="section-label">Why ShallBox</p>
+    <h2 class="section-title">쉘박스를<br /><span class="title-accent">선택하는 이유</span></h2>
+    <div class="reason-item">
+      <div class="reason-num">01</div>
+      <div class="reason-content">
+        <h3>재료 걱정 없이 장사에만 집중하세요</h3>
+        <p>전처리 채소 직공급 시스템으로 점주가 실제로 해야 할 일을 대폭 줄였습니다. 채소 손질은 본사가, 매장은 손님에게 집중합니다. 원가율도 35%로 안정적으로 유지됩니다.</p>
+        <div class="reason-tags">
+          <span class="reason-tag">손질 시간 제로</span>
+          <span class="reason-tag">원가율 35% 고정</span>
+          <span class="reason-tag">연간 가격 안정</span>
+        </div>
+      </div>
+    </div>
+    <div class="reason-item">
+      <div class="reason-num">02</div>
+      <div class="reason-content">
+        <h3>오픈 첫날부터 혼자 할 수 있습니다</h3>
+        <p>10~14일, 다이닝 출신 셰프와 본사 팀이 매장 옆에 붙어서 가르칩니다. 조리법은 물론, 세법·노무·배달 세팅까지. 아르바이트 한 명이면 충분한 수준으로 교육합니다.</p>
+        <div class="reason-tags">
+          <span class="reason-tag">10~14일 밀착 교육</span>
+          <span class="reason-tag">다이닝 출신 셰프</span>
+          <span class="reason-tag">1인 운영 가능</span>
+          <span class="reason-tag">오픈 현장 지원</span>
+        </div>
+      </div>
+    </div>
+    <div class="reason-item">
+      <div class="reason-num">03</div>
+      <div class="reason-content">
+        <h3>지금이 가장 좋은 조건입니다</h3>
+        <p>10호점까지 한시적으로 가맹비와 물류보증금을 면제합니다. 오픈 이벤트 지원금 100만원도 본사에서 직접 지원합니다.</p>
+        <div class="reason-tags">
+          <span class="reason-tag">가맹비 면제</span>
+          <span class="reason-tag">물류보증금 면제</span>
+          <span class="reason-tag">오픈 지원금 100만원</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERVIEW -->
+<section class="section interview-section">
+  <div class="section-inner">
+    <p class="section-label">Store Owner</p>
+    <h2 class="section-title">점주님의<br /><span class="title-accent">이야기</span></h2>
+    <div class="interview-placeholder">
+      <p>점주 인터뷰 영상이 곧 업로드됩니다</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section process-section">
+  <div class="section-inner">
+    <p class="section-label">How to Start</p>
+    <h2 class="section-title">창업 절차</h2>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="process-dot">1</div>
+        <h4>상담 신청</h4>
+        <p>전화 또는 카카오톡으로 문의주시면 빠르게 연락드립니다</p>
+      </div>
+      <div class="process-step">
+        <div class="process-dot">2</div>
+        <h4>상권 분석</h4>
+        <p>본사가 직접 부산·경남 주요 상권 분석을 함께 진행합니다</p>
+      </div>
+      <div class="process-step">
+        <div class="process-dot">3</div>
+        <h4>계약</h4>
+        <p>정보공개서 제공 및 가맹 계약을 체결합니다</p>
+      </div>
+      <div class="process-step">
+        <div class="process-dot">4</div>
+        <h4>교육 10~14일</h4>
+        <p>본사 대표 + 셰프 팀 밀착 교육으로 오픈 준비를 완료합니다</p>
+      </div>
+      <div class="process-step">
+        <div class="process-dot">5</div>
+        <h4>오픈</h4>
+        <p>본사 현장 지원 + 이벤트 지원금 100만원으로 함께 시작합니다</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COST -->
+<section class="section cost-section">
+  <div class="section-inner">
+    <p class="section-label">Investment</p>
+    <h2 class="section-title">가맹 조건</h2>
+    <p class="section-body">투명하게 공개합니다. 숨겨진 비용은 없습니다.</p>
+    <div class="cost-box">
+      <div style="text-align:center;margin-bottom:28px;">
+        <span class="cost-promo-badge">✦ 부산 10호점까지 특별 프로모션</span>
+        <p style="font-size:14px;color:var(--gray);font-weight:300;margin-top:8px;">지금이 가장 저렴한 창업 비용입니다</p>
+      </div>
+
+      <!-- 데스크탑 테이블 -->
+      <div class="cost-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="text-align:left;">항목</th>
+              <th>본사 기준</th>
+              <th>
+                <span style="display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#fff;padding:6px 18px;border-radius:999px;font-size:13px;">✦ 부산 10호점까지</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>가맹비</td>
+              <td class="cost-strike">500만원</td>
+              <td><span class="cost-exempt">면제</span></td>
+            </tr>
+            <tr>
+              <td>교육비</td>
+              <td>500만원</td>
+              <td>500만원</td>
+            </tr>
+            <tr>
+              <td>계약이행 보증금</td>
+              <td class="cost-strike">100만원</td>
+              <td><span class="cost-exempt">면제</span></td>
+            </tr>
+            <tr>
+              <td>오픈 광고비</td>
+              <td>300만원</td>
+              <td>250만원</td>
+            </tr>
+            <tr>
+              <td>인테리어 (15평 기준)</td>
+              <td>2,700만원</td>
+              <td>2,700만원</td>
+            </tr>
+            <tr>
+              <td>기기 및 설비</td>
+              <td>1,500만원</td>
+              <td>1,500만원</td>
+            </tr>
+            <tr class="total-row">
+              <td>총계</td>
+              <td>5,600만원</td>
+              <td>
+                <span class="cost-total-num">4,950만원</span>
+                <span class="cost-save">650만원 절감!</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 모바일 테이블 -->
+      <div class="cost-mobile">
+        <div style="display:flex;justify-content:space-between;padding-bottom:12px;border-bottom:2px solid var(--green);margin-bottom:4px;">
+          <span style="font-size:13px;color:var(--green);font-weight:500;">항목</span>
+          <div style="display:flex;gap:16px;">
+            <span style="font-size:12px;color:var(--gray);width:52px;text-align:center;">본사 기준</span>
+            <span style="font-size:12px;color:var(--green);font-weight:500;width:60px;text-align:center;">프로모션</span>
+          </div>
+        </div>
+        <div class="cost-mobile-row">
+          <span class="cost-mobile-label">가맹비</span>
+          <div class="cost-mobile-vals">
+            <span class="cost-mobile-orig">500만</span>
+            <span class="cost-mobile-promo"><span class="cost-exempt" style="font-size:12px;padding:3px 10px;">면제</span></span>
+          </div>
+        </div>
+        <div class="cost-mobile-row">
+          <span class="cost-mobile-label">교육비</span>
+          <div class="cost-mobile-vals">
+            <span class="cost-mobile-orig" style="text-decoration:none;color:var(--gray);">500만</span>
+            <span class="cost-mobile-promo">500만</span>
+          </div>
+        </div>
+        <div class="cost-mobile-row">
+          <span class="cost-mobile-label">보증금</span>
+          <div class="cost-mobile-vals">
+            <span class="cost-mobile-orig">100만</span>
+            <span class="cost-mobile-promo"><span class="cost-exempt" style="font-size:12px;padding:3px 10px;">면제</span></span>
+          </div>
+        </div>
+        <div class="cost-mobile-row">
+          <span class="cost-mobile-label">오픈 광고비</span>
+          <div class="cost-mobile-vals">
+            <span class="cost-mobile-orig" style="text-decoration:none;color:var(--gray);">300만</span>
+            <span class="cost-mobile-promo">250만</span>
+          </div>
+        </div>
+        <div class="cost-mobile-row">
+          <span class="cost-mobile-label">인테리어</span>
+          <div class="cost-mobile-vals">
+            <span class="cost-mobile-orig" style="text-decoration:none;color:var(--gray);">2,700만</span>
+            <span class="cost-mobile-promo">2,700만</span>
+          </div>
+        </div>
+        <div class="cost-mobile-row">
+          <span class="cost-mobile-label">기기 및 설비</span>
+          <div class="cost-mobile-vals">
+            <span class="cost-mobile-orig" style="text-decoration:none;color:var(--gray);">1,500만</span>
+            <span class="cost-mobile-promo">1,500만</span>
+          </div>
+        </div>
+        <div class="cost-mobile-total">
+          <span style="font-size:14px;color:var(--green);font-weight:500;">총계</span>
+          <div style="text-align:right;">
+            <span style="font-size:20px;color:var(--green);font-weight:500;">4,950만원</span>
+            <span class="cost-save">650만원 절감!</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cost-notes">
+        <p>· 로열티: 매출의 2%</p>
+        <p>· 별도 공사: 샷시, 파사드, 어닝, 간판, 냉난방기, 외부조명, 의자탁자, 철거, 화장실공사, 전기증설</p>
+        <p>· 상기 금액은 부가세 별도 금액입니다</p>
+        <p>· 인테리어 비용은 평당 180만원 기준이며, 매장 상태에 따라 변동될 수 있습니다</p>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:20px;font-size:13px;color:var(--gray);font-weight:300;">
+      이 혜택은 <strong style="color:var(--green);">부산 지역 10호점까지만</strong> 적용되는 특별 프로모션입니다. 마감 전에 서둘러 상담받으세요.
+    </p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq-section">
+  <div class="section-inner">
+    <p class="section-label">FAQ</p>
+    <h2 class="section-title">자주 묻는<br /><span class="title-accent">질문</span></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">요리 경험이 없어도 되나요?<span class="faq-icon">+</span></button>
+        <div class="faq-a">네. 다이닝 출신 셰프를 포함한 본사 팀이 10~14일간 밀착 교육합니다. 조리 경험이 없어도 오픈 즉시 운영 가능한 수준으로 트레이닝합니다.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">1인 운영이 가능한가요?<span class="faq-icon">+</span></button>
+        <div class="faq-a">네. 1인 또는 아르바이트 포함 1.5인 운영을 기본 목표로 교육합니다. 전처리 채소 직공급 시스템 덕분에 재료 손질 시간이 없어 1인 운영이 가능한 구조입니다.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">채소는 어떻게 공급받나요?<span class="faq-icon">+</span></button>
+        <div class="faq-a">본사와 계약한 유러피안 채소 농장에서 전처리·세척·소분이 완료된 상태로 정기 납품됩니다. 별도 장보기나 손질이 필요 없습니다. 연간 고정 가격으로 원가율 관리도 안정적입니다.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">가맹비 면제는 언제까지인가요?<span class="faq-icon">+</span></button>
+        <div class="faq-a">10호점 계약까지 한시적으로 운영됩니다. 현재 4개 지점 운영 중으로, 조기 마감될 수 있습니다. 지금 바로 상담 신청하시는 것을 권장드립니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section class="cta-section" id="contact">
+  <div class="cta-bg"><img src="images/store_night.webp" alt="쉘박스 야경" /></div>
+  <div class="cta-inner">
+    <p class="section-label">Contact</p>
+    <h2 class="cta-title">쉘박스와 함께할<br /><span class="title-accent">당신의 동네</span>를 알려주세요</h2>
+    <div class="form-wrap">
+      <div id="form-content">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">이름 *</label>
+            <input type="text" id="name" placeholder="홍길동" />
+          </div>
+          <div class="form-group">
+            <label for="phone">연락처 *</label>
+            <input type="tel" id="phone" placeholder="010-0000-0000" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="area">관심 지역 *</label>
+          <input type="text" id="area" placeholder="동네명으로 입력해주세요 (예: 해운대, 서면, 창원 상남동...)" />
+        </div>
+        <div class="form-group">
+          <label>창업 시기 *</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="timing" value="1개월 이내" /> 1개월 이내</label>
+            <label class="radio-label"><input type="radio" name="timing" value="2개월 이내" /> 2개월 이내</label>
+            <label class="radio-label"><input type="radio" name="timing" value="6개월 이내" /> 6개월 이내</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">문의 내용</label>
+          <textarea id="message" placeholder="궁금한 점을 자유롭게 적어주세요"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">상담 신청하기</button>
+        <div class="form-divider">또는</div>
+        <a href="https://pf.kakao.com/_your_kakao_id" target="_blank" class="form-kakao">
+          💬 카카오톡으로 바로 상담하기
+        </a>
+      </div>
+      <div class="form-success" id="form-success">
+        <div style="font-size:44px;margin-bottom:14px;">✅</div>
+        <h3>상담 신청이 완료됐습니다</h3>
+        <p>빠르게 연락드리겠습니다.<br />카카오톡으로도 문의하실 수 있습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <img src="images/logo.png" alt="ShallBox" class="footer-logo" />
+  <p>쉘박스 · 대표 김명진</p>
+  <p>부산광역시 해운대구</p>
+  <p><a href="https://shallbox.com" target="_blank">shallbox.com</a> · <a href="https://instagram.com/shallbox_official" target="_blank">@shallbox_official</a></p>
+  <p style="margin-top:14px;font-size:11px;">© 2025 ShallBox. All rights reserved.</p>
+</footer>
+
+<!-- PHONE MODAL -->
+<div class="modal-overlay" id="phone-modal" onclick="handleModalClick(event)">
+  <div class="modal">
+    <button class="modal-close-x" onclick="closePhoneModal()">×</button>
+    <div class="modal-icon">📞</div>
+    <h3>빠른 전화 상담</h3>
+    <a href="tel:010-7705-5321" class="modal-num">010-7705-5321</a>
+    <p>24시간 문의 가능합니다</p>
+    <button class="modal-close-btn" onclick="closePhoneModal()">닫기</button>
+  </div>
+</div>
+
+<script>
+  // Food Slide
+  let foodIdx = 0;
+  const foodTotal = 7;
+  const foodTrack = document.getElementById('foodTrack');
+  const dotsWrap = document.getElementById('foodDots');
+
+  // 도트 생성
+  for (let i = 0; i < foodTotal; i++) {
+    const d = document.createElement('button');
+    d.className = 'slide-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goFood(i);
+    dotsWrap.appendChild(d);
+  }
+
+  function goFood(idx) {
+    foodIdx = (idx + foodTotal) % foodTotal;
+    foodTrack.style.transform = `translateX(-${foodIdx * 100}%)`;
+    document.querySelectorAll('.slide-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === foodIdx);
+    });
+    // lazy load 트리거
+    const imgs = foodTrack.querySelectorAll('img[data-src]');
+    imgs.forEach(img => {
+      img.src = img.dataset.src;
+      img.onload = () => img.classList.add('loaded');
+      delete img.dataset.src;
+    });
+  }
+
+  function slideFood(dir) { goFood(foodIdx + dir); }
+
+  // 자동 슬라이드 4초
+  let foodTimer = setInterval(() => slideFood(1), 4000);
+  foodTrack.parentElement.addEventListener('mouseenter', () => clearInterval(foodTimer));
+  foodTrack.parentElement.addEventListener('mouseleave', () => {
+    foodTimer = setInterval(() => slideFood(1), 4000);
+  });
+
+  // Lazy Load
+  const lazyImgs = document.querySelectorAll('img[data-src]');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const img = e.target;
+        img.src = img.dataset.src;
+        img.onload = () => img.classList.add('loaded');
+        io.unobserve(img);
+      }
+    });
+  }, { rootMargin: '200px' });
+  lazyImgs.forEach(img => io.observe(img));
+
+  // Menu Tabs
+  function showMenu(type, btn) {
+    ['salad','sandwich','poke'].forEach(t => {
+      document.getElementById('menu-' + t).style.display = t === type ? 'grid' : 'none';
+    });
+    document.querySelectorAll('.menu-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // FAQ
+  function toggleFaq(btn) {
+    const a = btn.nextElementSibling;
+    const isOpen = a.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(el => el.classList.remove('open'));
+    document.querySelectorAll('.faq-q').forEach(el => el.classList.remove('open'));
+    if (!isOpen) { a.classList.add('open'); btn.classList.add('open'); }
+  }
+
+  // Phone Modal
+  function openPhoneModal() {
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      window.location.href = 'tel:010-7705-5321'; return;
+    }
+    document.getElementById('phone-modal').classList.add('open');
+  }
+  function closePhoneModal() {
+    document.getElementById('phone-modal').classList.remove('open');
+  }
+  function handleModalClick(e) {
+    if (e.target === e.currentTarget) closePhoneModal();
+  }
+
+  // Form Submit
+  async function submitForm() {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const area = document.getElementById('area').value.trim();
+    const timing = document.querySelector('input[name="timing"]:checked')?.value || '';
+    const message = document.getElementById('message').value.trim();
+    if (!name || !phone || !area || !timing) {
+      alert('이름, 연락처, 관심 지역, 창업 시기는 필수 항목입니다.'); return;
+    }
+    const btn = document.querySelector('.form-submit');
+    btn.textContent = '전송 중...'; btn.disabled = true;
+    try {
+      await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, area, timing, message, date: new Date().toLocaleString('ko-KR') })
+      });
+      document.getElementById('form-content').style.display = 'none';
+      document.getElementById('form-success').classList.add('show');
+    } catch {
+      alert('전송 중 오류가 발생했습니다. 전화로 문의해 주세요.');
+      btn.textContent = '상담 신청하기'; btn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>

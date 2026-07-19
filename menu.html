@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>쉘박스 메뉴 | ShallBox Menu</title>
+  <meta name="description" content="쉘박스 전체 메뉴 — 샐러드, 포케, 샌드위치, 음료" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #4d5a31;
+      --green-dark: #3d4727;
+      --cream: #f3ebe2;
+      --cream-dark: #e8ddd0;
+      --black: #1a1a1a;
+      --gray: #717171;
+      --gray-light: #f5f5f3;
+      --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+      background: var(--white); color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    /* HEADER */
+    .header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      padding: 0 24px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .header-logo { height: 38px; }
+    .header-back {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--gray); font-weight: 300;
+      padding: 8px 14px; border-radius: 999px;
+      border: 1px solid var(--cream-dark);
+      transition: all .2s;
+    }
+    .header-back:hover { border-color: var(--green); color: var(--green); }
+
+    /* HERO */
+    .menu-hero {
+      background: var(--green); padding: 48px 24px 40px;
+      text-align: center;
+    }
+    .menu-hero h1 {
+      font-size: clamp(28px, 4vw, 42px); font-weight: 300;
+      color: var(--white); letter-spacing: -0.01em; margin-bottom: 8px;
+    }
+    .menu-hero p { font-size: 14px; color: rgba(255,255,255,0.6); font-weight: 300; }
+
+    /* TABS */
+    .tabs-wrap {
+      position: sticky; top: 64px; z-index: 90;
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-dark);
+      padding: 0 24px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .tabs-wrap::-webkit-scrollbar { display: none; }
+    .tabs {
+      display: flex; gap: 0;
+      min-width: max-content;
+    }
+    .tab {
+      padding: 16px 24px;
+      font-size: 13px; font-weight: 500;
+      color: var(--gray); letter-spacing: 0.08em;
+      border-bottom: 2px solid transparent;
+      transition: all .2s; white-space: nowrap;
+      background: none; cursor: pointer; border-top: none; border-left: none; border-right: none;
+      font-family: inherit;
+    }
+    .tab.active { color: var(--green); border-bottom-color: var(--green); }
+    .tab:hover { color: var(--green); }
+
+    /* MENU SECTIONS */
+    .menu-section { display: none; padding: 40px 24px 80px; max-width: 760px; margin: 0 auto; }
+    .menu-section.active { display: block; }
+
+    .menu-section-title {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--green);
+      margin-bottom: 24px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .menu-img-wrap {
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      margin-bottom: 16px;
+    }
+    .menu-img-wrap img { width: 100%; }
+    .menu-img-wrap + .menu-img-wrap { margin-top: 12px; }
+
+    .menu-note {
+      font-size: 12px; color: var(--gray); font-weight: 300;
+      text-align: center; margin-top: 24px; line-height: 1.8;
+    }
+
+    /* DRESSING BOX */
+    .dressing-box {
+      background: var(--cream); border-radius: 14px;
+      padding: 20px 24px; margin-top: 24px;
+    }
+    .dressing-box h4 {
+      font-size: 12px; font-weight: 500; color: var(--green);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .dressing-list {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .dressing-tag {
+      font-size: 12px; font-weight: 300; color: var(--black);
+      background: var(--white); border-radius: 999px;
+      padding: 5px 12px;
+      border: 1px solid var(--cream-dark);
+    }
+
+    /* BEVERAGE GRID */
+    .bev-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px;
+    }
+    .bev-category h3 {
+      font-size: 14px; font-weight: 500; color: var(--green);
+      margin-bottom: 12px; padding-bottom: 8px;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .bev-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.05);
+      font-size: 13px;
+    }
+    .bev-item:last-child { border-bottom: none; }
+    .bev-name { color: var(--black); font-weight: 300; }
+    .bev-price { color: var(--green); font-weight: 500; white-space: nowrap; margin-left: 8px; }
+    .bev-options {
+      margin-top: 16px; padding: 12px 16px;
+      background: var(--cream); border-radius: 10px;
+      font-size: 11px; color: var(--gray); font-weight: 300; line-height: 1.8;
+    }
+
+    /* BACK TO TOP */
+    .back-to-fran {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; padding: 16px;
+      font-size: 14px; color: var(--green); font-weight: 500;
+      border-top: 1px solid var(--cream-dark);
+    }
+    .back-to-fran:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    @media (max-width: 600px) {
+      .bev-grid { grid-template-columns: 1fr; }
+      .menu-section { padding: 32px 16px 64px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <img src="images/logo.png" alt="LA CUISINE di ShallBox" class="header-logo" />
+  <a href="/" class="header-back">
+    ← 가맹 상담 페이지
+  </a>
+</header>
+
+<div class="menu-hero">
+  <h1>Menu</h1>
+  <p>건강한 맛 조합을 연구하는 쉘박스</p>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('salad', this)">SALAD</button>
+    <button class="tab" onclick="showTab('poke', this)">POKE</button>
+    <button class="tab" onclick="showTab('sandwich', this)">SANDWICH</button>
+    <button class="tab" onclick="showTab('beverage', this)">BEVERAGE</button>
+  </div>
+</div>
+
+<!-- SALAD -->
+<div id="tab-salad" class="menu-section active">
+  <p class="menu-section-title">Salad</p>
+  <div class="menu-img-wrap"><img src="images/menu_page_1.webp" alt="샐러드 기본구성 및 드레싱" /></div>
+  <div class="menu-img-wrap"><img src="images/menu_page_2.webp" alt="샐러드 메뉴 및 가격" /></div>
+  <div class="dressing-box">
+    <h4>Dressing</h4>
+    <div class="dressing-list">
+      <span class="dressing-tag">수제 유자 오리엔탈</span>
+      <span class="dressing-tag">수제 케이준</span>
+      <span class="dressing-tag">수제 스리라차 마요</span>
+      <span class="dressing-tag">오리엔탈</span>
+      <span class="dressing-tag">수제 와사비 마요</span>
+      <span class="dressing-tag">발사믹</span>
+      <span class="dressing-tag">수제 피넛 버터 오리엔탈 +500</span>
+    </div>
+  </div>
+</div>
+
+<!-- POKE -->
+<div id="tab-poke" class="menu-section">
+  <p class="menu-section-title">Poke</p>
+  <div class="menu-img-wrap"><img src="images/menu_page_3.webp" alt="포케 기본구성 및 드레싱" /></div>
+  <div class="menu-img-wrap"><img src="images/menu_page_4.webp" alt="포케 메뉴 및 가격" /></div>
+  <div class="dressing-box">
+    <h4>Dressing</h4>
+    <div class="dressing-list">
+      <span class="dressing-tag">수제 유자 오리엔탈</span>
+      <span class="dressing-tag">수제 케이준</span>
+      <span class="dressing-tag">수제 스리라차 마요</span>
+      <span class="dressing-tag">오리엔탈</span>
+      <span class="dressing-tag">수제 와사비 마요</span>
+      <span class="dressing-tag">발사믹</span>
+      <span class="dressing-tag">수제 피넛 버터 오리엔탈 +500</span>
+    </div>
+  </div>
+</div>
+
+<!-- SANDWICH -->
+<div id="tab-sandwich" class="menu-section">
+  <p class="menu-section-title">Sandwich</p>
+  <div class="menu-img-wrap"><img src="images/menu_page_5.webp" alt="샌드위치 시그니처 메뉴" /></div>
+  <div class="menu-img-wrap"><img src="images/menu_page_6.webp" alt="샌드위치 메뉴 및 가격" /></div>
+</div>
+
+<!-- BEVERAGE -->
+<div id="tab-beverage" class="menu-section">
+  <p class="menu-section-title">Beverage</p>
+  <div class="menu-img-wrap"><img src="images/menu_page_7.webp" alt="음료 메뉴 및 가격" /></div>
+  <p class="menu-note">캔 변경 +500 · 샷 추가 +1,000 · 바닐라 시럽 +500 · 헤이즐넛 시럽 +500</p>
+</div>
+
+<a href="/" class="back-to-fran">← 가맹 상담 페이지로 돌아가기</a>
+
+<script>
+  function showTab(name, btn) {
+    document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 128, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
