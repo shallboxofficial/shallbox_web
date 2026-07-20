@@ -1511,7 +1511,7 @@
     const btn = document.querySelector('.form-submit');
     btn.textContent = '전송 중...'; btn.disabled = true;
     try {
-      await fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
+      await fetch('https://script.google.com/macros/s/AKfycbxAmqK4T-zQhXBThd7XZa31XScvQq2kwypstWo3Rfivvftdv3mkSA9JrHvgCdR5O0dp/exec', {
         method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, phone, area, timing, message, date: new Date().toLocaleString('ko-KR') })
